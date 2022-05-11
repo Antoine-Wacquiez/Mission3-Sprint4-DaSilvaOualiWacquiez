@@ -4,20 +4,22 @@ include_once '../inc/entete.inc';
 
 <?php
 include_once '../modeles/mesFonctionsAccesBDD.php';
-$lePdo = connexionBDD();
-if (isset($_POST['id'])) {
-    $type = $_POST['id'];
+$pdo = connexionBDD();
+if (isset($_POST['id_bien'])) {
+    $idbien = $_POST['id_bien'];
+    suppBien($pdo, $idbien);
 }
 ?>
+
 <br>
 
 <h3>Pour supprimer :</h3>
 <br>
-<form method="post" action="formSuppBien.php">
+<form method="post" action="">
     <fieldset>
 
-        <label for="id">Saisir l'id du bien à supprimer:</label>
-        <input type="nombre" name="id" id="idBien" />
+        <label for="id_bien">Saisir l'id du bien à supprimer:</label>
+        <input type="number" name="id_bien" id="id_bien" />
     </fieldset>
     <br>
     <input class="submit" type="submit" value="Supprimer"  />

@@ -224,10 +224,9 @@ function getlesimages($pdo, $ref) {
     return $resultatRequete;
 }
 
-function suppBien($pdo, $id) {
-    $pdoStatement = $pdo->prepare("DELETE FROM bien WHERE id_bien = :id");
-    $bv1 = $pdoStatement->bindValue(':id', $id);
+function suppBien($pdo, $idbien) {
+    $pdoStatement = $pdo->prepare("DELETE FROM bien WHERE id_bien = :id_bien");
+    $bv1 = $pdoStatement->bindValue(':id_bien', $idbien);
     $execution = $pdoStatement->execute();
-    $resultatRequete = $pdoStatement->fetch();
-    return $resultatRequete;
+    return $execution;
 }

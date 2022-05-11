@@ -12,9 +12,9 @@
     <div class="footer-left">
 
         <p class="footer-links">
-            <a class="link-1" href="accueil.html"> Accueil </a>
+            <a class="link-1" href="../vuescontroleurs/accueil.php"> Accueil </a>
             <a href="../vuescontroleurs/listedesbiens.php."> Liste des biens </a>
-            <a href="../contact.html"> Contact </a>
+            <a href="../vuescontroleurs/contact.php"> Contact </a>
         </p>
 
         <p>Lille Immo &copy; 2022</p>
