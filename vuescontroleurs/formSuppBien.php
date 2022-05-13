@@ -15,7 +15,7 @@ if (isset($_POST['id_bien'])) {
 
 <h3>Pour supprimer :</h3>
 <br>
-<form method="post" action="" onsubmit="if (confirm('Etes_vous sûr de vouloir supprimer ce bien')) {
+<form method="post" action="" onsubmit="if (confirm('Etes-vous sûr de vouloir supprimer ce bien')) {
             return true;
         } else {
             return false;

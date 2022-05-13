@@ -23,7 +23,11 @@ if (isset($_POST['type'])) {
 <br>
 <h3>Pour modifier :</h3>
 <br>
-<form method="post" action="">
+<form method="post" action="" onsubmit="if (confirm('Etes-vous sûr de vouloir modifier ce bien')) {
+            return true;
+        } else {
+            return false;
+        }">
 
     <fieldset>
 
