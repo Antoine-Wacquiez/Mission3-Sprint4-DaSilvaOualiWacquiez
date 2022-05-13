@@ -64,7 +64,7 @@ function hachagemdp($pdo, $mdp) {
 }
 
 function getlesbiens($pdo) {
-    $pdoStatement = $pdo->prepare("SELECT id_bien , ville , type , prix, description, surface, nbpieces, jardin FROM bien inner join type on bien.type = type.nomType");
+    $pdoStatement = $pdo->prepare("SELECT id_bien , ville , type , prix, description, surface, nbpieces, jardin FROM bien inner join type on bien.type = type.nomType order by id_bien");
     $execution = $pdoStatement->execute();
     $resultatRequete = $pdoStatement->fetchAll();
     return $resultatRequete;
@@ -226,7 +226,7 @@ function getlesimages($pdo, $ref) {
 
 function suppBien($pdo, $idbien) {
     $pdoStatement = $pdo->prepare("DELETE FROM bien WHERE id_bien = :id_bien");
-    $bv1 = $pdoStatement->bindValue(':id_bien', $idbien);
+    $pdoStatement->bindValue(':id_bien', $idbien);
     $execution = $pdoStatement->execute();
     return $execution;
 }
