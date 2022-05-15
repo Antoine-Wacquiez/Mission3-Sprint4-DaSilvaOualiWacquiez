@@ -27,7 +27,11 @@ include_once '../inc/entete.inc';
     <h3>Pour ajouter :</h3>
 
     <br>
-    <form method="post" action="">
+    <form method="post" action="" onsubmit="if (confirm('Etes-vous sûr de vouloir ajouter ce bien')) {
+            return true;
+        } else {
+            return false;
+        }">
 
         <fieldset>
 

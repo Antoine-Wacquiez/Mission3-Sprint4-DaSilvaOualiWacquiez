@@ -112,7 +112,7 @@ function getnbpiece($pdo) {
     return $resultat;
 }
 
-function getrecherche($pdo, $ville, $type, $jardin, $min, $max, $surfacemin, $nbpieces) {
+function getrecherche($pdo, $ville, $type, $jardin, $min, $max, $surfacemin, $nbpieces, $id_bien) {
     $requete = "SELECT id_bien,ville ,Type ,prix, jardin, surface, nbpieces from bien Inner join Type on Type.nomType=bien.Type where 1=1";
 
     if ($ville != "") {
@@ -137,6 +137,9 @@ function getrecherche($pdo, $ville, $type, $jardin, $min, $max, $surfacemin, $nb
 
     if ($nbpieces != "") {
         $requete .= " and nbpieces >= :nbpieces";
+    }
+    if ($id_bien != "") {
+        $requete .= " and id_bien = :id_bien";
     }
 
     $pdoStatement = $pdo->prepare($requete);
@@ -164,9 +167,9 @@ function getrecherche($pdo, $ville, $type, $jardin, $min, $max, $surfacemin, $nb
     if ($nbpieces != "") {
         $bv7 = $pdoStatement->bindValue(':nbpieces', $nbpieces);
     }
-
-
-
+    if ($id_bien != "") {
+        $bv8 = $pdoStatement->bindValue('id_bien', $id_bien);
+    }
     $execution = $pdoStatement->execute();
     $resultat = $pdoStatement->fetchAll();
 
@@ -188,7 +191,7 @@ function ajoutbien($pdo, $type, $prix, $description, $surface, $ville, $nbpieces
 }
 
 function getidbien($pdo) {
-    $pdoStatement = $pdo->prepare("Select id_bien from bien");
+    $pdoStatement = $pdo->prepare("Select id_bien from bien ORDER BY id_bien");
     $execution = $pdoStatement->execute();
     $resultat = $pdoStatement->fetchAll();
     return $resultat;
@@ -225,7 +228,10 @@ function getlesimages($pdo, $ref) {
 }
 
 function suppBien($pdo, $idbien) {
-    $pdoStatement = $pdo->prepare("DELETE FROM bien WHERE id_bien = :id_bien");
+    $pdoStatement = $pdo->prepare("DELETE FROM images WHERE id_bien = :id_bien");
+    $pdoStatement->bindValue(':id_bien', $idbien);
+    $execution = $pdoStatement->execute();
+    $pdoStatement = $pdo->prepare("DELETE FROM bien WHERE id_bien =:id_bien");
     $bv1 = $pdoStatement->bindValue(':id_bien', $idbien);
     $execution = $pdoStatement->execute();
     return $execution;

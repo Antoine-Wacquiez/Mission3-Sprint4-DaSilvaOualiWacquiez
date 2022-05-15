@@ -15,7 +15,11 @@ if (isset($_POST['id_bien'])) {
 
 <h3>Pour supprimer :</h3>
 <br>
-<form method="post" action="">
+<form method="post" action="" onsubmit="if (confirm('Etes-vous sûr de vouloir supprimer ce bien')) {
+            return true;
+        } else {
+            return false;
+        }">
     <fieldset>
 
         <label for="id_bien">Saisir l'id du bien à supprimer:</label>
@@ -56,7 +60,6 @@ if (isset($_POST['id_bien'])) {
     ?>
 
 </table>
-
 <?php
 include_once '../inc/piedDePage.inc';
 ?>

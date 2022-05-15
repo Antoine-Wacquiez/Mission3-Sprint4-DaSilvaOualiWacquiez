@@ -95,7 +95,7 @@ include_once '../inc/entete.inc';
     </tr>
     <?php
     include_once '../modeles/mesFonctionsAccesBDD.php';
-    if (isset($_POST['ville'])) {
+       if (isset($_POST['ville'])) {
         $lePdo = connexionBDD();
         $ville = $_POST['ville'];
         $type = $_POST['type'];
@@ -104,8 +104,9 @@ include_once '../inc/entete.inc';
         $max = $_POST['max'];
         $surfacemin = $_POST['surfacemin'];
         $nbpiecesmin = $_POST['nbpiecesmin'];
+        $id_bien= $_POST['id_bien'];
 
-        $larecherche = getrecherche($lePdo, $ville, $type, $jardin, $min, $max, $surfacemin, $nbpiecesmin);
+        $larecherche = getrecherche($lePdo, $ville, $type, $jardin, $min, $max, $surfacemin, $nbpiecesmin,$id_bien);
         foreach ($larecherche as $unbien) {
 
             $info = '<tr> <td class=\'reference\'>' . '<a href=' . '../autres/unBien.php?id_bien=' . $unbien['id_bien'] . '>' . $unbien['id_bien'] . '</a> </td> '

@@ -75,6 +75,9 @@ include_once '../modeles/mesFonctionsAccesBDD.php';
     <input type="text" value="" name="nbpiecesmin" >
 
 
+    <label for="id_bien" title="Veuillez choisir votre reference  " class="oblig">Veuillez choisir votre référence  : </label>
+    <input type="text" value="" name="id_bien" >
+
     <br>
     <br>
 
