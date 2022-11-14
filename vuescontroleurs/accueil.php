@@ -34,6 +34,7 @@ include_once '../inc/entete.inc';
     <br>
     <p>Que vous soyez acheteur ou propriétaire d'un bien immobilier Lille , les conseillers de notre agence immobilère vous encadrent tout au long de votre projet immobilier avec notamment un partenariat avec des organismes de crédit immobilier. Notre agence immobilière Lille, dispose de biens immobiliers sur toute la Métropole.</p>
     <br><br>
+    
 
 
     <img class ="c" src="../images/lille2.png" alt="Une photo de Lille">

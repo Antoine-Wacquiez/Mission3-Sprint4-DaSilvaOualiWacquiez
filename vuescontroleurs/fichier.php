@@ -1,0 +1,20 @@
+<?php
+include_once '../inc/entete.inc';
+#$name_file = "infosUtili.txt";
+include_once '../modeles/mesFonctionsAccesBDD.php';
+$lePdo = connexionBDD();
+$infos = recupinfo($pdo,$_SESSION['username']);
+$json = json_encode($infos);
+echo "$json";
+file_put_contents("info.json", $json);
+    #$name_file = $_GET['path'];
+    $name_file = "info.json";
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachement; filename"'. basename($name_file) . '"');
+        header('Expires: 0');
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($name_file));
+        readfile($name_file);
+        exit;

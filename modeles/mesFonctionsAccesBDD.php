@@ -3,7 +3,7 @@
 function connexionBDD() {
     $bdd = 'mysql:host=localhost;dbname=mission3';
     $user = 'root';
-    $password = '';
+    $password = 'newpass';
     try {
 
         $ObjConnexion = new PDO($bdd, $user, $password, array(
@@ -21,14 +21,23 @@ function deconnexionBDD($cnx) {
 function testLoginMdp($pdo, $login, $mdp) {
     $pdoStatement = $pdo->prepare("SELECT count(*) as nbLogin FROM utilisateur WHERE login = :login and mdp= :password");
     $bv1 = $pdoStatement->bindValue(':login', $login);
-    $bv2 = $pdoStatement->bindValue(':password', $mdp);
+    //$HASH = password_hash($mdp,PASSWORD_BCRYPT);
+    $HASH=$mdp;
+    $bv2 = $pdoStatement->bindValue(':password', $HASH);
     $execution = $pdoStatement->execute();
     $resultatRequete = $pdoStatement->fetch();
+    //var_dump($resultatRequete);
+    //echo $login;
+   // echo $mdp;
+    
     if ($resultatRequete['nbLogin'] == 1) {
         $loginTrouve = true;
+        //echo 'hgf';
     } else {
         $loginTrouve = false;
+        //echo "eizhizhe";
     }
+    //echo "dollar login ";
     return $loginTrouve;
 }
 
@@ -44,23 +53,6 @@ function nbCaractereMdp($pdo) {
     $execution = $pdoStatement->execute();
     $resultatRequete = $pdoStatement->fetch();
     return $resultatRequete['NbCarMdp'];
-}
-
-function hachagemdp($pdo, $mdp) {
-    $recuperation = ('Select mdp from utilisateur ');
-    $statement = $pdo->prepare($recuperation);
-    $statement->execute();
-    $resultat = $statement->fetch();
-    $mdp = $resultat;
-    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
-    $recuperation1 = ("update utilisateur set mdp = $mpd_hash where id = 1  ");
-    $execute->execute();
-    return $execute;
-    if (password_verify($mdp, $mdp_hash)) {
-        echo "Mot de passe correct";
-    } else {
-        echo "Mot de passe incorrect";
-    }
 }
 
 function getlesbiens($pdo) {
@@ -190,6 +182,16 @@ function ajoutbien($pdo, $type, $prix, $description, $surface, $ville, $nbpieces
     return $execution;
 }
 
+function ajoututilisateur($pdo, $login, $mail, $codepostal, $mdp) {
+    $pdoStatement = $pdo->prepare("INSERT INTO utilisateur (login, mail, codepostal, mdp) VALUES (:login, :mail, :codepostal, :mdp)");
+    $bv1 = $pdoStatement->bindValue(':login', $login);
+    $bv2 = $pdoStatement->bindValue(':mail', $mail);
+    $bv3 = $pdoStatement->bindValue(':codepostal', $codepostal);
+    $bv4 = $pdoStatement->bindValue(':mdp', $mdp);
+    $execution = $pdoStatement->execute();
+    return $execution;
+}
+
 function getidbien($pdo) {
     $pdoStatement = $pdo->prepare("Select id_bien from bien ORDER BY id_bien");
     $execution = $pdoStatement->execute();
@@ -235,4 +237,47 @@ function suppBien($pdo, $idbien) {
     $bv1 = $pdoStatement->bindValue(':id_bien', $idbien);
     $execution = $pdoStatement->execute();
     return $execution;
+}
+
+function ajoutconnexion($pdo,$login){
+    //$dt = time();
+    //$date = new \Datetime();
+    try{
+        $pdoStatement = $pdo->prepare("INSERT INTO connexion(login,dateConnexion,dateDeconnexion) VALUES(:login,'2022-08-08',null)");
+        $bv1 = $pdoStatement->bindValue(':login',$login);
+        $execution = $pdoStatement->execute();
+    }
+    catch(Exception $e){
+        echo 'Message : ',  $e->getMessage();
+    }
+   
+    return $execution;
+    
+}
+function modifutilisateur($pdo,$mail, $codepostal,$login) {
+    $pdoStatement = $pdo->prepare("Update utilisateur set mail=:mail , codepostal=:codepostal where login=:login");
+    $bv1 = $pdoStatement->bindValue(':login', $login);
+    $bv2 = $pdoStatement->bindValue(':mail', $mail);
+    $bv3 = $pdoStatement->bindValue(':codepostal', $codepostal);
+    //$bv4 = $pdoStatement->bindValue(':mdp', $mdp);
+    $execution = $pdoStatement->execute();
+    return $execution;
+}
+
+function recupinfo($pdo,$login){
+    $pdoStatement = $pdo->prepare("SELECT mail,codepostal FROM utilisateur WHERE login = :login");
+    $bv1 = $pdoStatement->bindValue(':login', $login);
+    $execution = $pdoStatement->execute();
+    $resultatRequete = $pdoStatement->fetch(PDO::FETCH_ASSOC);
+    return $resultatRequete;   
+}
+
+function supprimerUtilisateur($pdo,$login){
+    $pdoStatement = $pdo->prepare("DELETE FROM connexion WHERE login = :login");
+    $bv1 = $pdoStatement->bindValue(':login', $login);
+    $execution = $pdoStatement->execute();
+    $pdoStatement = $pdo->prepare("DELETE FROM  utilisateur WHERE login = :login");
+    $bv1 = $pdoStatement->bindValue(':login', $login);
+    $execution = $pdoStatement->execute();
+    return $execution;  
 }
