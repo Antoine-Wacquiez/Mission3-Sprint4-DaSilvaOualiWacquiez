@@ -46,13 +46,29 @@ include_once '../inc/entete.inc';
         <br>
     </form>
 
+    <br><br>
+    <form method="post" action="" onsubmit="if (confirm('Etes-vous sûr de vouloir supprimer votre compte ')) {
+            return true;
+        } else {
+            return false;
+        }">
+        <p> Supprimer votre compte  </p>
+            <input class="submit" type="submit" name ="supprimer" value="Supprimer"/> 
+        <br>
+    </form>
+
+    <br><br>
     <form action="fichier.php" method="post">
-        <input type="submit" value="Télécharger" />
+        <input type="submit" value="Télécharger sous JSON" />
+    </form>
+
+    <form action=".php" method="post">
+        <input type="submit" value="Télécharger sous HASH" />
     </form>
     
     
 
-    <br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br>
     <?php
     include_once '../inc/piedDePage.inc';
     ?>
