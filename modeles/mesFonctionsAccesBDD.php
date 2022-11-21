@@ -185,7 +185,13 @@ function ajoutbien($pdo, $type, $prix, $description, $surface, $ville, $nbpieces
 function ajoututilisateur($pdo, $login, $mail, $codepostal, $mdp) {
     $pdoStatement = $pdo->prepare("INSERT INTO utilisateur (login, mail, codepostal, mdp) VALUES (:login, :mail, :codepostal, :mdp)");
     $bv1 = $pdoStatement->bindValue(':login', $login);
-    $bv2 = $pdoStatement->bindValue(':mail', $mail);
+    $key = "test";
+    $cipher = "aes-128-gcm";
+    $ivlen = openssl_cipher_iv_length($cipher);
+    $iv = openssl_random_pseudo_bytes($ivlen);
+    $tag_length = 16;
+    $chiffMail = openssl_encrypt($mail, $cipher, $key, $options=0, $iv, $tag_length );
+    $bv2 = $pdoStatement->bindValue(':mail', $chiffMail);
     $bv3 = $pdoStatement->bindValue(':codepostal', $codepostal);
     $bv4 = $pdoStatement->bindValue(':mdp', $mdp);
     $execution = $pdoStatement->execute();

@@ -24,7 +24,8 @@
                 <input type="submit" id='submit' value='SE CONNECTER' >
                 
                 <a class='lien' href="../vuescontroleurs/accueil.php">Revenir à l'accueil </a>
-
+                <br>
+                <a href="inscription.php">Inscription</a>
             </form>
         </div>
     </body>

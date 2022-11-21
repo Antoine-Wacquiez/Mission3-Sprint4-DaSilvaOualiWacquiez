@@ -25,6 +25,7 @@
         $mdp = $_POST['mdp'];
         $HASH = password_hash($mdp,PASSWORD_BCRYPT);
         ajoututilisateur($lePdo, $login, $mail, $codepostal, $HASH);
+        header("Location:accueil.php");
     }
     ?>
 
@@ -54,6 +55,7 @@
         <br><br>
         <input class="submit" type="submit" value="Inscription" />
         <br>
+        <a href="formConnexion.php">Connexion</a>
     
     </form>
         </div>

@@ -14,7 +14,13 @@ include_once '../inc/entete.inc';
         if(filter_var($mail, FILTER_VALIDATE_EMAIL)){    
         modifutilisateur($lePdo,$mail,$codepostal,$login);
         }
-   }
+    }
+
+   if (isset($_POST['supprimer'])) {
+    supprimerUtilisateur($lePdo,$_SESSION['username']);
+    header("Location:Deconnexion.php");
+    }
+
     ?>
     <br>
     <h3>Modifier vos informations :</h3>
@@ -58,6 +64,7 @@ include_once '../inc/entete.inc';
     </form>
 
     <br><br>
+    
     <form action="fichier.php" method="post">
         <input type="submit" value="Télécharger sous JSON" />
     </form>
